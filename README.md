@@ -1,8 +1,9 @@
 # TPOT-scripts
+## top_ips_by_count.sh
 
 This script is made as a part of an extension for the extensive [T-POT software honeypot](https://github.com/telekom-security/tpotce). As some people might know, this honeypot application comes preshipped with a lot of handy-dandy scripts. However I missed one which suited MY needs and fit into the implementation of MY organization. The functionalities these scripts offer may or may not be suited for your organization or hold no value.
 
-## top_ips_by_count.sh
+## How does it work
 
 If you are ever stuck on the syntax used in this script, you can go ahead and use 
 > `sudo ./top_ips_by_count.sh -h` or `sudo ./top_ips_by_count.sh --help`:
@@ -43,9 +44,53 @@ In this case however I chose to take the information below. In order to get this
 > *Click the three dots in the top right corner of the visualisation. In the expanded view, click the View: Data in the top right corner and click on requests. In this final view, you can go to the request tab et voilà. Simply copy this body and paste it between the single quotes*
 ---
 
-### Example usage of the command:
+### Example output of the command:
 
 ![script_example_output](https://user-images.githubusercontent.com/92089291/165716782-f13d88fd-45ce-49bc-bcb0-e109eb913cb4.png)
 
 The script lists top 100 attacker source IPs together with a green note if they are running honeypots on the system. You also have the option to filter these results out or only give these results. There is also the possibility to filter on private addresses or public only (only works for IPv4 addresses at the time of writing this readme).
+
+## map_docker_ip.sh
+
+This script is used to map internal IP addresses to their corresponding docker containers (if available) and vice versa.
+I’m sure there is a faster and more efficient way to get this kind of information, however it was not that simple when it came to MY instance of T-POT (which makes constant use of docker containers: ***dockerception***). 
+
+### How does it work 
+
+If you are ever stuck on the syntax used in this script, you can go ahead and use 
+> `sudo ./map_docker_ip.sh -h` or `sudo ./map_docker_ip.sh --help`:
+
+```bash
+This script should help map Docker container names to their IP and vice versa.
+
+Usage (you should be running this script as root):
+
+./map_docker_ip.sh -name [DOCKER_NAME]           Returns the IP address of the give Docker container
+./map_docker_ip.sh -ip [IP_ADDRESS]              Returns the Docker name of the given IP
+./map_docker_ip.sh -h or --help                  Prints this help
+
+Example:
+
+./map_docker_ip.sh -ip 172.28.0.1
+./map_docker_ip.sh -name dionaea
+
+To find out what containers are currently running on your system, you can verify with 'sudo docker ps -a'
+Base script by github.com/telekom-security/tpotce and edited by @Bastibaard
+```
+
+Behind the scenes it uses only 2 commands:
+- _Ip addr | grep global_
+- _Docker network ls_
+
+With these two commands, you can easily map the IP to the docker name and the other way around. It’s just a matter of order. If you want to map from IP to name, you first grep the ip address and take the bridge ID. You then look up the bridge ID via docker network ls | grep [BRIDGE-ID] and then cut out the relevant information (name). 
+
+To map a name to an IP, you just do the above but in reverse.
+
+---
+
+### Example output of the command:
+
+![script_map_name_to_ip](https://user-images.githubusercontent.com/92089291/165723960-be901922-1323-4009-95fb-1fef8ba518de.png)
+
+---
 
