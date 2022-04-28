@@ -1,9 +1,19 @@
 # TPOT-scripts
+
+# Table of Contents
+- [top_ips_by_count.sh](#top_ips_by_count.sh)
+  - How does it work 
+  - Where does the data come from
+  - Example output
+- [map_docker_ip.sh](#map_docker_ip.sh)
+  - How does it work
+  - Example output
+
 ## top_ips_by_count.sh
 
 This script is made as a part of an extension for the extensive [T-POT software honeypot](https://github.com/telekom-security/tpotce). As some people might know, this honeypot application comes preshipped with a lot of handy-dandy scripts. However I missed one which suited MY needs and fit into the implementation of MY organization. The functionalities these scripts offer may or may not be suited for your organization or hold no value.
 
-## How does it work
+### How does it work
 
 If you are ever stuck on the syntax used in this script, you can go ahead and use 
 > `sudo ./top_ips_by_count.sh -h` or `sudo ./top_ips_by_count.sh --help`:
@@ -93,4 +103,8 @@ To map a name to an IP, you just do the above but in reverse.
 ![script_map_name_to_ip](https://user-images.githubusercontent.com/92089291/165723960-be901922-1323-4009-95fb-1fef8ba518de.png)
 
 ---
+
+# Word from the author
+
+If you happened to stumble on this page and have no idea what T-POT is, go have a loot at their amazing product: [TPOT-honeypot](https://github.com/telekom-security/tpotce)
 
