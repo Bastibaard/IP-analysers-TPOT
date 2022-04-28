@@ -187,7 +187,10 @@ fi
 
 #main
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 576df86c9384919db53c68674e82c6e7d360634b
 case "$1" in
         "private" | "public" | "all" | "honeypots" | "nohoneypots")
         addrTYPE="$1"
@@ -201,15 +204,21 @@ case "$1" in
         ;;
 esac
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 576df86c9384919db53c68674e82c6e7d360634b
 case "$2" in
 	"-d" | "--date")
 	QUERY_DATE=$3
 	;;
+<<<<<<< HEAD
 	"-h" | "--help")
 	fuHELP
 	exit 0
 	;;
+=======
+>>>>>>> 576df86c9384919db53c68674e82c6e7d360634b
 	"")
 	QUERY_DATE="now-1M/M"
 	;;
