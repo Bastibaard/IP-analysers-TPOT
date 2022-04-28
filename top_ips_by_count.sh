@@ -205,7 +205,6 @@ case "$2" in
 	"-d" | "--date")
 	QUERY_DATE=$3
 	;;
-<<<<<<< HEAD
 	"-h" | "--help")
 	fuHELP
 	exit 0
