@@ -4,7 +4,8 @@ This script is made as a part of an extension for the extensive [T-POT software 
 
 ## top_ips_by_count.sh
 
-If you are ever stuck on the syntax used in this script, you can go ahead and use `sudo ./top_ips_by_count.sh -h` or `--help`:
+If you are ever stuck on the syntax used in this script, you can go ahead and use 
+> `sudo ./top_ips_by_count.sh -h` or `sudo ./top_ips_by_count.sh --help`:
 
 ```bash
 This script gives a list of the top 100 source IP-addresses (if present) that were captured based on their count. 
@@ -39,8 +40,7 @@ In this case however I chose to take the information below. In order to get this
 
 ![attacker_source_ip](https://user-images.githubusercontent.com/92089291/165717337-ed65b2fb-62b1-4d67-8c4c-79a8c9daf94e.png)
 
-Click the three dots in the top right corner of the visualisation. In the expanded view, click the View: Data in the top right corner and click on requests. In this final view, you can go to the request tab et voilà. Simply copy this body and paste it between the single quotes
-
+> *Click the three dots in the top right corner of the visualisation. In the expanded view, click the View: Data in the top right corner and click on requests. In this final view, you can go to the request tab et voilà. Simply copy this body and paste it between the single quotes*
 ---
 
 ### Example usage of the command:
