@@ -108,3 +108,12 @@ To map a name to an IP, you just do the above but in reverse.
 
 If you happened to stumble on this page and have no idea what T-POT is, go have a loot at their amazing product: [TPOT-honeypot](https://github.com/telekom-security/tpotce)
 
+# Licensing
+
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
