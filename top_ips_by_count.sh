@@ -108,11 +108,11 @@ function fuHELP(){
         echo -e "Usage:"
 	echo -e "$SCRIPTNAME [TYPE] -d [DATE]\n"
 	echo -e "Examples (you should be running this script as root):\n"
-        echo -e "$SCRIPTNAME private -d '2202-03'\t Returns all private addresses listed in the top 100 listed source IPs." 
-        echo -e "$SCRIPTNAME public -d '2202-03'\t Returns all public addresses listed in the top 100 listed source IPs." 
-        echo -e "$SCRIPTNAME honeypots -d '2202-03'\t Returns all honeypots listed in the top 100 listed source IPs." 
-        echo -e "$SCRIPTNAME nohoneypots -d '2202-03'\t Filters out all honeypots from the top 100 listed source IPs." 
-        echo -e "$SCRIPTNAME all -d '2202-03'\t\t Returns all addresses listed in the top 100 listed source IPs. \n" 
+        echo -e "$SCRIPTNAME private -d '2022-03'\t Returns all private addresses listed in the top 100 listed source IPs." 
+        echo -e "$SCRIPTNAME public -d '2022-03'\t Returns all public addresses listed in the top 100 listed source IPs." 
+        echo -e "$SCRIPTNAME honeypots -d '2022-03'\t Returns all honeypots listed in the top 100 listed source IPs." 
+        echo -e "$SCRIPTNAME nohoneypots -d '2022-03'\t Filters out all honeypots from the top 100 listed source IPs." 
+        echo -e "$SCRIPTNAME all -d '2022-03'\t\t Returns all addresses listed in the top 100 listed source IPs. \n" 
 	echo -e "To find out what containers are currently running on your system, you can verify with 'sudo docker ps -a"
 	echo -e "Base script by github.com/telekom-security/tpotce and edited by @Bastibaard"
 }
@@ -186,6 +186,7 @@ fi
 }
 
 #main
+
 
 case "$1" in
         "private" | "public" | "all" | "honeypots" | "nohoneypots")

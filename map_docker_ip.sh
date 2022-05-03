@@ -23,12 +23,56 @@ function fuHELP(){
 	echo -e "To find out what containers are currently running on your system, you can verify with 'sudo docker ps -a'"
 }
 
+function fuDOCKNAMETOIP(){
+	# Gets argument $DOCKER_NAME
+	DOCKER_NAME=$1
+	NETWORK_ID=$(sudo docker network ls | grep $DOCKER_NAME | awk '{print $1}')
+	NETWORK_NAME=$(sudo docker network ls | grep $DOCKER_NAME | awk '{print $2}')
+
+	if ! [[ $NETWORK_ID = "" ]]; then
+		DOCKER_GATE=$(ip addr | grep global | grep $NETWORK_ID | awk '{print $2}')
+		IP_ADDR=$(sudo docker inspect -f "{{ .NetworkSettings.Networks.$NETWORK_NAME.IPAddress }}" $DOCKER_NAME)
+		echo -e "Docker Name: \t Gateway: \t IP-address"
+		echo -e "$DOCKER_NAME \t ${DOCKER_GATE::-3} \t $IP_ADDR"
+		exit 0
+	else
+		echo "No results found."
+		exit 0
+	fi
+}
+
+function fuDOCKNAMEFROMIP(){
+	# Gets argument $DOCKER_IP
+	FULL_IP=$1
+	PARTIAL_IP=$(echo $1 | tr -d " " | cut -d "." -f1,2,3)
+	BRIDGE_ID=$(ip addr | grep global | grep $PARTIAL_IP | awk '{print $7}' | cut -c 4-)
+	NETWORK_NAME=$(sudo docker network ls | grep $BRIDGE_ID | awk '{print $2}')
+	DOCKER_NAME=$(sudo docker network ls | grep $BRIDGE_ID | awk '{print $2}' | awk -F '[_*_]' '{print $2}')
+
+	if ! [[ $NETWORK_NAME = "" ]];then
+		set -e
+		IP_ADDR=$(sudo docker inspect -f "{{ .NetworkSettings.Networks.$NETWORK_NAME.IPAddress }}" $DOCKER_NAME)
+		GATEWAY=$(sudo docker inspect -f "{{ .NetworkSettings.Networks.$NETWORK_NAME.Gateway }}" $DOCKER_NAME)
+	fi
+
+	if [[ $GATEWAY = $FULL_IP ]];then
+		echo -e "Docker Name: \t Gateway: \t IP-address"
+		echo -e "$DOCKER_NAME \t $GATEWAY \t $IP_ADDR"
+	elif [[ $IP_ADDR = $FULL_IP  ]];then
+		echo -e "Docker Name: \t Gateway: \t IP-address"
+		echo -e "$DOCKER_NAME \t $GATEWAY \t $FULL_IP"
+	else
+		echo "No results found."
+		exit 0
+	fi
+}
+
 case "$1" in
 	"-name")
-	DOCKER_NAME="$2"
+	fuDOCKNAMETOIP "$2"
 	;;
 	"-ip")
-	DOCKER_IP="$2"
+	fuDOCKNAMEFROMIP "$2"
 	;;
 	"-h" | "--help")
 	fuHELP
@@ -38,29 +82,3 @@ case "$1" in
 	exit 1
 	;;
 esac
-
-if [ $1 = "-name" ]; then
-	NETWORK_ID=$(sudo docker network ls | grep $DOCKER_NAME |cut -d " " -f 1)
-	if ! [[ $NETWORK_ID = "" ]]; then
-		NETWORK_IP=$(ip addr | grep global | grep $NETWORK_ID | awk '{print $2}')
-	#	NETWORK_IP=$(ip addr | grep global | grep $NETWORK_ID | tr -s ' ' | cut -d ' ' -f 3)
-		echo -e "Docker Name: \t IP-address"
-		echo -e "$DOCKER_NAME \t $NETWORK_IP"
-		exit 0
-	else
-		echo "No results found"
-		exit 0
-	fi
-
-elif [ $1 = "-ip" ]; then
-	DOCKER_ID=$(ip addr | grep global | grep $DOCKER_IP | awk '{print $7}' | cut -c 4-)
-	if ! [[ $DOCKER_ID = "" ]]; then
-		DOCKER_NAME=$(sudo docker network ls | grep $DOCKER_ID | awk '{print $2}' | cut -c 5-)
-		echo -e "Docker Name: \t IP-address"
-		echo -e "$DOCKER_NAME \t $DOCKER_IP"
-		exit 0
-	else
-		echo "No results found"
-		exit 0
-	fi
-fi
